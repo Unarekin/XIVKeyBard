@@ -22,6 +22,11 @@ import { HomeModule } from './home/home.module';
 
 import { AppComponent } from './app.component';
 
+import {
+  MidiControllerService
+} from './shared/services';
+
+
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -46,7 +51,9 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       }
     })
   ],
-  providers: [],
+  providers: [
+    MidiControllerService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
