@@ -1024,10 +1024,10 @@
   dependencies:
     defer-to-connect "^1.0.1"
 
-"@tonejs/midi@2.0.15":
-  version "2.0.15"
-  resolved "https://registry.yarnpkg.com/@tonejs/midi/-/midi-2.0.15.tgz#34c56bd8095d84d0c4a8b26309214818ac458fb3"
-  integrity sha512-fBfSHvGWCPJePzbizQnCOQY/jZB0DpSHcNvlsYD40HcHFsA9oDzIU/zauWfMfoP8EBywPUYipOIh/GXiklWuJA==
+"@tonejs/midi@2.0.7":
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/@tonejs/midi/-/midi-2.0.7.tgz#bf51b17d98fcd3b6c43fd01ae60ef9e44ca554da"
+  integrity sha512-Clh22AAhMoAVh5qfRqF4RGxBXzRqFKh0ist5Ppr+L/8dpEwWLJnWMEq3CrwHUI+B/gmFz2/i+TxuEywSUEuqMg==
   dependencies:
     array-flatten "^2.1.2"
     midi-file "^1.1.1"

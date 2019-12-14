@@ -95,7 +95,7 @@
     "@angular/flex-layout": "8.0.0-beta.27",
     "@angular/forms": "^8.0.0 || ^9.0.0-0",
     "@angular/material": "8.2.3",
-    "@tonejs/midi": "2.0.15",
+    "@tonejs/midi": "2.0.7",
     "hammerjs": "^2.0.8",
     "webmidi": "2.5.1"
   }

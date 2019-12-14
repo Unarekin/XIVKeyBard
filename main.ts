@@ -1,6 +1,7 @@
-import { app, BrowserWindow, screen } from 'electron';
+import { app, BrowserWindow, screen, ipcMain } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
+import * as fs from 'fs';
 
 let win: BrowserWindow = null;
 const args = process.argv.slice(1),
@@ -79,3 +80,31 @@ try {
   // Catch Error
   // throw e;
 }
+
+
+/**
+ * Main thread callback for loading buffer for MIDI file on disk.
+ * @params {string} dir - The path to load.
+ */
+ipcMain.on('load-file', (event, dir) => {
+  fs.readFile(dir, (err, buffer) => {
+    if (err)
+      event.reply('load-file', {status: 'error', message: err.message});
+    else
+      event.reply('load-file', {status: 'success', data: buffer});
+  });
+});
+
+/**
+ * Main thread callback for listing files in a directory.
+ * @param {string} dir - The path to scan.
+ */
+ ipcMain.on('list-file', (event, dir) => {
+   fs.readdir(dir, (err, files) => {
+     if (err) {
+       event.reply('list-file', {status: 'error', message: err.message});
+     } else {
+       event.reply('list-file', {status: 'success', files: files.filter((file: string) => path.extname(file) == '.mid')});
+     }
+   });
+ })
