@@ -23,7 +23,8 @@ import { HomeModule } from './home/home.module';
 import { AppComponent } from './app.component';
 
 import {
-  MidiControllerService
+  MidiControllerService,
+  MidiFileService
 } from './shared/services';
 
 
@@ -52,7 +53,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     })
   ],
   providers: [
-    MidiControllerService
+    MidiControllerService,
+    MidiFileService
   ],
   bootstrap: [AppComponent]
 })
