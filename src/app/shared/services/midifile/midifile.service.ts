@@ -28,7 +28,7 @@ export class MidiFileService {
    */
   public LoadFromDisk(path: string): Promise<Midi> {
     return this.ipc.Send('load-file', path)
-      .then((data: Buffer) => new Midi(data))
+      .then((res: any[]) => new Midi(res[0]))
   }
 
   /**

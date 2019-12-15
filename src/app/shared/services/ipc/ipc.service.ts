@@ -49,7 +49,7 @@ export class IPCService {
     });
 
     this.awaitingResponse[id] = promise;
-    ipcRenderer.send(channel, uuid, ...args);
+    ipcRenderer.send(channel, id, ...args);
     return promise;
   }
 }
