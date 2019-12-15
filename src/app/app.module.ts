@@ -25,6 +25,7 @@ import { AppComponent } from './app.component';
 import {
   MidiControllerService,
   MidiFileService
+  IPCService
 } from './shared/services';
 
 
@@ -55,6 +56,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   providers: [
     MidiControllerService,
     MidiFileService
+    IPCService
   ],
   bootstrap: [AppComponent]
 })
