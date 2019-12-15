@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { ipcRenderer } from 'electron';
 import { Midi } from '@tonejs/midi';
+
+import { IPCService } from '../ipc/ipc.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MidiFileService {
 
-  constructor() {
+  constructor(private ipc: IPCService) {
     this.LoadFromBuffer = this.LoadFromBuffer.bind(this);
     this.LoadFromDisk = this.LoadFromDisk.bind(this);
     this.LoadFromURL = this.LoadFromURL.bind(this);
@@ -26,19 +27,8 @@ export class MidiFileService {
    * @returns {Promise<Midi>}
    */
   public LoadFromDisk(path: string): Promise<Midi> {
-    return new Promise((resolve, reject) => {
-      try {
-        let res: any = ipcRenderer.sendSync('load-file', path);
-        if (res.status == 'error') {
-          reject(new Error(res.message));
-        } else {
-          let midi: Midi = this.LoadFromBuffer(res.data);
-          resolve(midi);
-        }
-      } catch (err) {
-        reject(err);
-      }
-    });
+    return this.ipc.Send('load-file', path)
+      .then((data: Buffer) => new Midi(data))
   }
 
   /**
@@ -54,13 +44,6 @@ export class MidiFileService {
    * @returns {Promise<string[]>}
    */
   public GetFileList(path: string): Promise<string[]> {
-    return new Promise((resolve, reject) => {
-      try {
-        let files: string[] = ipcRenderer.sendSync('list-file', path);
-        resolve(files);
-      } catch (err) {
-        reject(err);
-      }
-    });
+    return this.ipc.Send('list-file');
   }
 }
