@@ -1,11 +1,24 @@
 {
+  "DIALOGS": {
+    "CONFIRMATION": {
+      "YES": "Yes",
+      "NO": "No",
+      "CANCEL": "Cancel",
+      "OK": "OK"
+    }
+  },
   "PAGES": {
-    "FRONT": {
-      "TITLE": "KeyBard",
-      "SETTINGS": "Settings"
-    },
     "HOME": {
       "TITLE": "KeyBard"
+    },
+    "SETTINGS": {
+      "LANGUAGE": "Language",
+      "DIRECTORIES": "Song Paths",
+      "ADDDIRECTORY": "Add Directory",
+      "REMOVEDIRECTORY": "Remove Directory",
+      "REMOVEDIRECTORYCONFIRMATION": "Are you sure you wish to remove this directory path?",
+      "ADDDIRECTORYPROMPT": "Please enter a path to add:",
+      "EDITDIRECTORYPROMPT": "Please enter the updated path:"
     }
   }
 }

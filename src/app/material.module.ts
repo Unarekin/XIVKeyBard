@@ -39,6 +39,7 @@ import {
   MatToolbarModule,
   MatTooltipModule,
   MatTreeModule,
+  MatFormFieldModule
 } from '@angular/material';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -84,7 +85,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatTooltipModule,
     MatTreeModule,
     ScrollingModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatFormFieldModule
   ]
 })
 export class MaterialModule {}

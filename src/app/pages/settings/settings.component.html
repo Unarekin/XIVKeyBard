@@ -1,1 +1,36 @@
-Settings!
+<div fxLayout="column" fxLayoutAlign="start center" fxFlexFill class="settings-list">
+  <mat-form-field class="settings-item">
+    <mat-label>{{'PAGES.SETTINGS.LANGUAGE' | translate}}</mat-label>
+    <mat-select (selectionChange)="onLanguageChange($event)" [(ngModel)]="CurrentLanguage">
+      <mat-option *ngFor="let lang of Languages" [value]="lang.value">
+        <div fxLayout="row">
+          <span fxFlex>{{lang.name}}</span>
+          <span class="englishName">({{lang.englishName}})</span>
+        </div>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-label class="settings-item">{{'PAGES.SETTINGS.DIRECTORIES' | translate}}</mat-label>
+  <mat-list class="directory-list settings-item" fxFlex>
+    <mat-list-item *ngFor="let dir of LibraryPaths">
+      <p mat-line>{{dir}}</p>
+      <button mat-icon-button matTooltip="{{'PAGES.SETTINGS.EDITDIRECTORY' | translate}}" (click)="editDirectory(dir)">
+        <fa-icon [icon]="Icons.edit"></fa-icon>
+      </button>
+      <button mat-icon-button matTooltip="{{'PAGES.SETTINGS.REMOVEDIRECTORY' | translate}}" (click)="removeDirectory(dir)">
+        <fa-icon [icon]="Icons.remove"></fa-icon>
+      </button>
+    </mat-list-item>
+  </mat-list>
+  <div fxLayout="row" fxLayoutAlign="end center" class="settings-item" (click)="AddPath()">
+    <button mat-icon-button matTooltip="{{'PAGES.SETTINGS.ADDDIRECTORY' | translate}}">
+      <fa-icon [icon]="Icons.add"></fa-icon>
+    </button>
+  </div>
+  <mat-toolbar class="settings-footer" fxLayout="row" fxLayoutAlign="end center">
+    <button mat-raised-button color="primary" (click)="Save()">
+      <fa-icon [icon]="Icons.save"></fa-icon>
+      Save
+    </button>
+  </mat-toolbar>
+</div>

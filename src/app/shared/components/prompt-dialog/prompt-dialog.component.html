@@ -1,0 +1,10 @@
+<div mat-dialog-content>
+  {{Message}}
+  <mat-form-field>
+  	<input matInput [(ngModel)]="Response">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancelClick()">{{'DIALOGS.CONFIRMATION.CANCEL' | translate}}</button>
+  <button mat-button (click)="onOkClick()" cdkFocusInitial>{{'DIALOGS.CONFIRMATION.OK' | translate}}</button>
+</div>

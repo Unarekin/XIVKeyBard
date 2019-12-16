@@ -8,8 +8,6 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
 
-import { MaterialModule } from './material.module';
-
 
 import { SharedModule } from './shared/shared.module';
 
@@ -35,7 +33,7 @@ import {
 } from './shared/services';
 
 import {
-  MenuComponent
+  MenuComponent,
 } from './shared/components';
 
 // AoT requires an exported function for factories
@@ -54,7 +52,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     FormsModule,
     HttpClientModule,
     CoreModule,
-    MaterialModule,
     SharedModule,
     AppRoutingModule,
     TranslateModule.forRoot({

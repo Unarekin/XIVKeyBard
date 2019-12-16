@@ -1,0 +1,27 @@
+.englishName {
+  font-size: .75em;
+}
+
+
+::ng-deep {
+  mat-label, .mat-select-value, .mat-list-item {
+    color: white !important;
+  }
+
+}
+
+.settings-list {
+  .settings-item {
+    width: 100%;
+    width: 500px;
+  }
+
+  .directory-list {
+    border: 2px inset;
+    height: 100%;
+  }
+
+  .settings-footer {
+    background-color: transparent;
+  }
+}

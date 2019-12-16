@@ -1,0 +1,20 @@
+{
+  "DIALOGS": {
+    "CONFIRMATION": {
+      "YES": "Si",
+      "NO": "No"
+    }
+  },
+  "PAGES": {
+    "HOME": {
+      "TITLE": "KeyBard"
+    },
+    "SETTINGS": {
+      "LANGUAGE": "Idioma",
+      "DIRECTORIES": "Directorios de Canciones",
+      "ADDDIRECTORY": "Agregar Directorio",
+      "REMOVEDIRECTORY": "Eliminar Directorio",
+      "REMOVEDIRECTORYCONFIRMATION": "¿Seguro que quieres eliminar este directorio?"
+    }
+  }
+}

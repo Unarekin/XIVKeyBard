@@ -1,4 +1,5 @@
 {
   "defaultLang": "en",
-  "currentLang": "en"
+  "currentLang": "en",
+  "songDirectories": ["./songs"]
 }

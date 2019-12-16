@@ -35,7 +35,7 @@ export class AppComponent {
     private router: Router,
     private zone: NgZone
   ) {
-    // translate.setDefaultLang('en');
+    translate.addLangs(['en', 'es']);
 
     translate.setDefaultLang(settings.Has("defaultLang") ? settings.Get("defaultLang") : 'en');
     translate.use(settings.Has("currentLang") ? settings.Get("currentLang") : 'en');

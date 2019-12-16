@@ -43,8 +43,10 @@ export class SettingsService {
    */
   public Refresh() {
     let settings: any = localStorage.getItem("app-settings");
-    settings = JSON.parse(settings);
-    this._settings = settings;
+    if (settings) {
+      settings = JSON.parse(settings);
+      this._settings = settings;
+    }
   }
 
 
@@ -68,6 +70,7 @@ export class SettingsService {
    */
   public Set<T>(setting: string, value: T) {
     this._settings[setting] = value;
+    console.log("Settings: ", this.Settings);
     this.Save();
     return value;
   }
