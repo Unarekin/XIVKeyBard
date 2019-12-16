@@ -12,15 +12,27 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MaterialModule } from '../material.module';
-import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
-import { PromptDialogComponent } from './components/prompt-dialog/prompt-dialog.component';
+
+import {
+  ConfirmationDialogComponent,
+  PromptDialogComponent,
+  SongSelectorComponent
+} from './components';
+
+import {
+  MidiControllerService,
+  MidiFileService,
+  IPCService,
+  SettingsService
+} from './services';
 
 @NgModule({
   declarations: [
   	PageNotFoundComponent,
   	WebviewDirective,
   	ConfirmationDialogComponent,
-  	PromptDialogComponent
+  	PromptDialogComponent,
+    SongSelectorComponent
   ],
   imports: [
   	CommonModule,
@@ -38,11 +50,18 @@ import { PromptDialogComponent } from './components/prompt-dialog/prompt-dialog.
   	FontAwesomeModule,
     CommonModule,
     BrowserModule,
-    MaterialModule
+    MaterialModule,
+    SongSelectorComponent
   ],
   entryComponents: [
     ConfirmationDialogComponent,
     PromptDialogComponent
+  ],
+  providers: [
+    MidiControllerService,
+    MidiFileService,
+    IPCService,
+    SettingsService
   ]
 })
 export class SharedModule {}

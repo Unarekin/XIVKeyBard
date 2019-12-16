@@ -25,17 +25,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppComponent } from './app.component';
 
-import {
-  MidiControllerService,
-  MidiFileService,
-  IPCService,
-  SettingsService
-} from './shared/services';
-
-import {
-  MenuComponent,
-} from './shared/components';
-
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -43,8 +32,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 
 @NgModule({
   declarations: [
-    AppComponent,
-    MenuComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -61,12 +49,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
         deps: [HttpClient]
       }
     })
-  ],
-  providers: [
-    MidiControllerService,
-    MidiFileService,
-    IPCService,
-    SettingsService
   ],
   bootstrap: [
     AppComponent

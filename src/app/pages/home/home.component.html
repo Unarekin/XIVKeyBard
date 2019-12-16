@@ -1,1 +1,2 @@
-Home!
+<keybard-songselector *ngIf="!SelectedSong"></keybard-songselector>
+<div *ngIf="SelectedSong">Song selected: {{SelectedSong.name}}</div>
