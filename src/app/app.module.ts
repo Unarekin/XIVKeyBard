@@ -68,7 +68,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   providers: [
     MidiControllerService,
     MidiFileService,
-    IPCService
+    IPCService,
+    SettingsService
   ],
   bootstrap: [
     AppComponent
