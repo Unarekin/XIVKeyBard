@@ -30,7 +30,8 @@ import { AppComponent } from './app.component';
 import {
   MidiControllerService,
   MidiFileService,
-  IPCService
+  IPCService,
+  SettingsService
 } from './shared/services';
 
 import {
