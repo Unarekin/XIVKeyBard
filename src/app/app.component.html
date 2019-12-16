@@ -1,1 +1,31 @@
-<router-outlet></router-outlet>
+<div fxLayout="column" fxFlexFill>
+  <mat-toolbar class="toolbar" fxLayout="row">
+    <div fxFlex>
+      <a routerLink="home">
+        <h2>KeyBard</h2>
+      </a>
+    </div>
+    <button mat-icon-button matTooltip="Settings" routerLink="/settings" *ngIf="CurrentRoute != '/settings'">
+      <fa-icon [icon]="Icons.settings"></fa-icon>
+    </button>
+    <button mat-icon-button matTooltip="Back" routerLink="/home" *ngIf="CurrentRoute != '/home'">
+      <fa-icon [icon]="Icons.back"></fa-icon>
+    </button>
+
+  </mat-toolbar>
+  <div fxFlex class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<!-- <div fxLayout="column" fxFlexFill>
+  <mat-toolbar class="toolbar">KeyBard</mat-toolbar>
+  <mat-drawer-container fxFlex class="drawer">
+    <mat-drawer mode="side" opened>
+      <keybard-menu></keybard-menu>
+    </mat-drawer>
+    <mat-drawer-content class="content">
+      <router-outlet></router-outlet>
+    </mat-drawer-content>
+  </mat-drawer-container>
+</div> -->

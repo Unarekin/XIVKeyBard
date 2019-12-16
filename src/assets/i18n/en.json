@@ -1,7 +1,11 @@
 {
   "PAGES": {
-      "HOME": {
-          "TITLE": "App works !"
-      }
+    "FRONT": {
+      "TITLE": "KeyBard",
+      "SETTINGS": "Settings"
+    },
+    "HOME": {
+      "TITLE": "KeyBard"
+    }
   }
 }

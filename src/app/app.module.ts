@@ -2,12 +2,14 @@ import 'reflect-metadata';
 import '../polyfills';
 
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
 
 import { MaterialModule } from './material.module';
+
 
 import { SharedModule } from './shared/shared.module';
 
@@ -18,7 +20,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-import { HomeModule } from './home/home.module';
+// import {
+//   HomeModule,
+//   SettingsModule
+// } from './pages';
 
 import { AppComponent } from './app.component';
 
@@ -28,6 +33,9 @@ import {
   IPCService
 } from './shared/services';
 
+import {
+  MenuComponent
+} from './shared/components';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -35,15 +43,18 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 }
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    MenuComponent
+  ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
     CoreModule,
     MaterialModule,
     SharedModule,
-    HomeModule,
     AppRoutingModule,
     TranslateModule.forRoot({
       loader: {
@@ -58,6 +69,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     MidiFileService,
     IPCService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule {}
