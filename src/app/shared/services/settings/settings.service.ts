@@ -6,8 +6,8 @@ import { Injectable } from '@angular/core';
 })
 export class SettingsService {
 
-  private _settings: any = require('./defaultSettings.json');
-  private _defaultSettings: any = {};
+  private _settings: any = {};
+  private _defaultSettings: any = require('./defaultSettings.json');
 
   public get Settings(): any {
     return Object.assign({}, this._defaultSettings, this._settings);
@@ -19,6 +19,8 @@ export class SettingsService {
     this.Get = this.Get.bind(this);
     this.Set = this.Set.bind(this);
     this.Clear = this.Clear.bind(this);
+
+    // console.log("Default settings: ", this._settings);
 
     try {
       this.Refresh();
@@ -52,6 +54,7 @@ export class SettingsService {
    * @returns {T}
    */
   public Get<T>(setting: string): T {
+    // console.log("Settings: ", this.Settings);
     if (this.Settings[setting])
       return this.Settings[setting];
     else
@@ -75,5 +78,18 @@ export class SettingsService {
   public Clear() {
     this._settings = {};
     this.Save();
+  }
+
+  /**
+   * Returns whether or not a setting exists.
+   * @param {string} setting - The setting for which to check
+   * @param {boolean} nonDefault - If true, only check that we have a customized setting set.
+   * @returns {boolean}
+   */
+  public Has(setting: string, nonDefault: boolean = false): boolean {
+    if (nonDefault)
+      return (this._settings[setting] ? true : false);
+    else
+      return (this.Settings[setting] ? true : false);
   }
 }

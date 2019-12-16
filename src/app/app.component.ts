@@ -4,6 +4,8 @@ import { ElectronService } from './core/services';
 import { TranslateService } from '@ngx-translate/core';
 import { AppConfig } from '../environments/environment';
 
+import { SettingsService } from './shared/services';
+
 import {
   faCog,
   faChevronLeft
@@ -29,10 +31,15 @@ export class AppComponent {
   constructor(
     public electronService: ElectronService,
     private translate: TranslateService,
+    private settings: SettingsService,
     private router: Router,
     private zone: NgZone
   ) {
-    translate.setDefaultLang('en');
+    // translate.setDefaultLang('en');
+
+    translate.setDefaultLang(settings.Has("defaultLang") ? settings.Get("defaultLang") : 'en');
+    translate.use(settings.Has("currentLang") ? settings.Get("currentLang") : 'en');
+
     console.log('AppConfig', AppConfig);
     console.log("Route: ", this.router.url);
     if (electronService.isElectron) {
