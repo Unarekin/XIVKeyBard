@@ -1,0 +1,35 @@
+.song-viewport {
+  border: 1px solid black;
+  background: rgba(0,0,0,0.8);
+  padding: 10px;
+  margin-top: 25px;
+
+  .song-item {
+    height: 50px;
+    padding-top: 5px;
+    
+    a {
+      color: white;
+      text-decoration: none;
+    }
+  }
+}
+
+.bottom {
+  background-color: transparent;
+  color: white;
+  font-size: 1em;
+  margin-top: 25px;
+  height: 72px;
+
+  mat-toolbar-row {
+    height: 100%;
+  }
+}
+
+.file-drop {
+  height: 100%;
+  border: 2px dashed #1E90FF;
+  border-radius: 10px;
+  text-align: center;
+}

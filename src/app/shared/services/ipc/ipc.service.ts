@@ -35,14 +35,14 @@ export class IPCService {
    * @param {string} channel - The channel to which the main thread should route the request.
    * @returns {Promise}
    */
-  public Send(channel: string, ...args): Promise<any[]> {
+  public Send(channel: string, args: any): Promise<any[]> {
     let id = this.generateId();
     let promise: Promise<any[]> = new Promise<any[]>((resolve, reject) => {
-      ipcRenderer.once(`reply-${id}`, (event, status: string, ...args) => {
-        if (status === 'error') {
-          reject(new Error(args[0]));
-        } else if (status === 'success') {
-          resolve(...args);
+      ipcRenderer.once(`reply-${id}`, (event, response) => {
+        if (response.status === 'error') {
+          reject(new Error(response.message));
+        } else if (response.status === 'success') {
+          resolve(response.data);
           delete this.awaitingResponse[id];
         }
       });

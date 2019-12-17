@@ -20,5 +20,12 @@
       "ADDDIRECTORYPROMPT": "Please enter a path to add:",
       "EDITDIRECTORYPROMPT": "Please enter the updated path:"
     }
+  },
+  "COMPONENTS": {
+    "SONGSELECTOR": {
+      "SELECTASONG": "Please select a song to play:",
+      "UPLOADFILE": "Or select a file to load:",
+      "DROPFILEHERE": "Or drop a file here to open"
+    }
   }
 }

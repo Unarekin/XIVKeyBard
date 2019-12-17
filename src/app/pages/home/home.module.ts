@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 
 import { HomeComponent } from './home.component';
 import { SharedModule } from '../../shared/shared.module';
+import { AppModule } from '../../app.module';
 
 @NgModule({
   declarations: [HomeComponent],
-  imports: [CommonModule, SharedModule]
+  imports: [CommonModule, SharedModule, AppModule]
 })
 export class HomeModule {}

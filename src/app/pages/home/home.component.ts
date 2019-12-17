@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Midi } from '@tonejs/midi';
 
 @Component({
   selector: 'keybard-home',
@@ -6,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  public SelectedSong: Midi = null;
 
-  constructor() { }
+  constructor() {
+    this.SetSelectedSong = this.SetSelectedSong.bind(this);
+  }
 
   ngOnInit(): void { }
+
+  public SetSelectedSong($event) { this.SelectedSong = $event; }
 
 }

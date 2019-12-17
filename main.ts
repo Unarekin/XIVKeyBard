@@ -87,12 +87,12 @@ try {
  * Main thread callback for loading buffer for MIDI file on disk.
  * @params {string} dir - The path to load.
  */
-ipcMain.on('load-file', (event, dir) => {
+ipcMain.on('load-file', (event, id, dir) => {
   fs.readFile(dir, (err, buffer) => {
     if (err)
-      event.reply('load-file', {status: 'error', message: err.message});
+      event.reply(`reply-${id}`, {status: 'error', message: err.message});
     else
-      event.reply('load-file', {status: 'success', data: buffer});
+      event.reply(`reply-${id}`, {status: 'success', data: buffer});
   });
 });
 
@@ -100,12 +100,12 @@ ipcMain.on('load-file', (event, dir) => {
  * Main thread callback for listing files in a directory.
  * @param {string} dir - The path to scan.
  */
- ipcMain.on('list-file', (event, dir) => {
+ ipcMain.on('list-file', (event, id, dir) => {
    fs.readdir(dir, (err, files) => {
      if (err) {
-       event.reply('list-file', {status: 'error', message: err.message});
+       event.reply(`reply-${id}`, {status: 'error', message: err.message});
      } else {
-       event.reply('list-file', {status: 'success', files: files.filter((file: string) => path.extname(file) == '.mid')});
+       event.reply(`reply-${id}`, {status: 'success', data: files});
      }
    });
  })
