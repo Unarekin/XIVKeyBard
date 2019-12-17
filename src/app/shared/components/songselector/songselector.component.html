@@ -1,1 +1,34 @@
-<p>songselector works!</p>
+<div fxLayout="column" fxLayoutAlign="start" fxFlexFill fxLayoutGap="25">
+  {{'COMPONENTS.SONGSELECTOR.SELECTASONG' | translate}}
+  
+  <cdk-virtual-scroll-viewport itemSize="50" class="song-viewport" fxFlex style="height:100%">
+    <mat-nav-list>
+      <mat-list-item *cdkVirtualFor="let song of ScannedSongs" class="song-item">
+        <a matLine (click)="LoadSong(song)">{{song.name}}</a>
+      </mat-list-item>
+    </mat-nav-list>
+  </cdk-virtual-scroll-viewport>
+  
+  <mat-toolbar class="bottom">
+    <mat-toolbar-row fxLayout="row" fxLayoutAlign="end">
+      <ngx-file-drop
+        class="file-drop"
+        fxFlex
+        [accept]="mid"
+        [directory]="false"
+        [multiple]="false"
+        [showBrowseBtn]="true"
+        contentClassName="file-drop"
+        dropZoneClassName="file-drop"
+        dropZoneLabel="{{'COMPONENTS.SONGSELECTOR.DROPFILEHERE' | translate}}"
+        (onFileDrop)="Dropped($event)"
+        (onFileOver)="FileOver($event)"
+        (onFileLeave)="FileLeave($event)"
+      ></ngx-file-drop>
+<!--       <div fxLayout="column">
+        {{'COMPONENTS.SONGSELECTOR.UPLOADFILE' | translate}}
+        <input type='file' (change)="FileChange($event)">
+      </div> -->
+    </mat-toolbar-row>
+  </mat-toolbar>
+</div>

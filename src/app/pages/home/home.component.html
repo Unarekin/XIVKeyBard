@@ -1,2 +1,4 @@
-<keybard-songselector *ngIf="!SelectedSong"></keybard-songselector>
+<div *ngIf="!SelectedSong" fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
+	<keybard-songselector fxFlexFill (onSongSelected)="SetSelectedSong($event)"></keybard-songselector>
+</div>
 <div *ngIf="SelectedSong">Song selected: {{SelectedSong.name}}</div>

@@ -13,6 +13,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MaterialModule } from '../material.module';
 
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { NgxFileDropModule } from 'ngx-file-drop';
+
 import {
   ConfirmationDialogComponent,
   PromptDialogComponent,
@@ -40,7 +43,9 @@ import {
   	FormsModule,
   	FlexLayoutModule,
   	FontAwesomeModule,
-    MaterialModule
+    MaterialModule,
+    ScrollingModule,
+    NgxFileDropModule
   ],
   exports: [
   	TranslateModule,
@@ -51,7 +56,8 @@ import {
     CommonModule,
     BrowserModule,
     MaterialModule,
-    SongSelectorComponent
+    SongSelectorComponent,
+    NgxFileDropModule
   ],
   entryComponents: [
     ConfirmationDialogComponent,
