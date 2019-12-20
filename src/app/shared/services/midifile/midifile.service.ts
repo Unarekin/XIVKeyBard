@@ -48,4 +48,18 @@ export class MidiFileService {
   public GetFileList(path: string): Promise<string[]> {
     return this.ipc.Send('list-file', path);
   }
+
+  public GetTimeFromTicks(song: Midi, ticks: number): number {
+    
+    let tempo = song.header.tempos
+      .filter((tempo: any) => tempo.ticks <= ticks)
+      .sort((a, b) => a.ticks < b.ticks ? 1 : -1)
+      [0];
+
+    // console.log("Tempos: ", song.header.tempos);
+    // console.log("Tempo: ", tempo);
+    // 60000 / (BPM * PPQ)
+    let ticksPerMS = (60000 / (tempo.bpm * song.header.ppq));
+    return ticks * ticksPerMS;
+  }
 }

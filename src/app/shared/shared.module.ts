@@ -19,7 +19,9 @@ import { NgxFileDropModule } from 'ngx-file-drop';
 import {
   ConfirmationDialogComponent,
   PromptDialogComponent,
-  SongSelectorComponent
+  SongSelectorComponent,
+  PianoRollComponent,
+  SongControlComponent
 } from './components';
 
 import {
@@ -29,13 +31,20 @@ import {
   SettingsService
 } from './services';
 
+import {
+  TimeDurationPipe
+} from './pipes';
+
 @NgModule({
   declarations: [
   	PageNotFoundComponent,
   	WebviewDirective,
   	ConfirmationDialogComponent,
   	PromptDialogComponent,
-    SongSelectorComponent
+    SongSelectorComponent,
+    PianoRollComponent,
+    SongControlComponent,
+    TimeDurationPipe
   ],
   imports: [
   	CommonModule,
@@ -57,6 +66,9 @@ import {
     BrowserModule,
     MaterialModule,
     SongSelectorComponent,
+    PianoRollComponent,
+    SongControlComponent,
+    TimeDurationPipe,
     NgxFileDropModule
   ],
   entryComponents: [
