@@ -4,6 +4,7 @@
 <div *ngIf="SelectedSong" fxFlexFill fxLayout="column">
   <keybard-songcontrol
     [SelectedSong]="SelectedSong"
+    [(CurrentTick)]="CurrentTick"
     (onTickChange)="TickChange($event)"
     (onStart)="ScrollStart()"
     (onStop)="ScrollStop()"

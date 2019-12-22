@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, NgZone } from '@angular/core';
 import { Midi } from '@tonejs/midi';
 import { MidiFileService } from '../../services/midifile/midifile.service';
 
@@ -27,7 +27,14 @@ export class SongControlComponent implements OnInit {
   public SelectedSong: Midi = null;
 
   public CurrentTime: number = 0;
-  public CurrentTick: number = 0;
+
+  private _currentTick: number = 0;
+  @Input()
+  public set CurrentTick(value: number) {
+    this.zone.run(() => { this._currentTick = value; });
+  }
+  public get CurrentTick(): number { return this._currentTick; }
+
   public IsPlaying: boolean = false;
   public IsPaused: boolean = false;
 
@@ -38,7 +45,7 @@ export class SongControlComponent implements OnInit {
     pause: faPause
   };
 
-  constructor(private midifile: MidiFileService) {
+  constructor(private midifile: MidiFileService, private zone: NgZone) {
     this.onSliderChanged = this.onSliderChanged.bind(this);
   }
 

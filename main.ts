@@ -1,4 +1,4 @@
-import { app, BrowserWindow, screen, ipcMain } from 'electron';
+import { app, BrowserWindow, screen, ipcMain, Menu } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 import * as fs from 'fs';
@@ -24,6 +24,16 @@ function createWindow(): BrowserWindow {
       allowRunningInsecureContent: (serve) ? true : false,
     },
   });
+
+  // // Menu
+  // let menu: Menu = Menu.buildFromTemplate([
+  //   {
+  //     label: 'Menu',
+  //     submenu: []
+  //   }
+  // ]);
+  // win.setMenu(menu);
+
 
   if (serve) {
     require('electron-reload')(__dirname, {

@@ -7,6 +7,7 @@ interface Key {
   pitch: string,
   sharp: boolean,
   flat: boolean,
+  natural: string,
   label?: Phaser.GameObjects.Text
 }
 
@@ -14,6 +15,12 @@ interface TranslatedNote {
   note: string,
   octave: number,
   pitch: string
+}
+
+interface LabeledNote {
+  label: Phaser.GameObjects.Text,
+  note: any,
+  track: any
 }
 
 export class PianoRollScene extends Phaser.Scene {
@@ -27,6 +34,8 @@ export class PianoRollScene extends Phaser.Scene {
   private _graphics: Phaser.GameObjects.Graphics = null;
   /** The lines in our note grid */
   private _gridLines: Phaser.Geom.Line[] = [];
+  /** Info to draw */
+  private _info: Phaser.GameObjects.Text = null;
   /** Text objects to label keys in game view */
   private _keyLabels: Phaser.GameObjects.Text[] = [];
   /** Custom position shifts for key labels */
@@ -50,6 +59,8 @@ export class PianoRollScene extends Phaser.Scene {
   private _keyWidth: number = 0;
   /** Keys to display.  C, D, etc */
   private _notes: string[] = ["C", "D", "E", "F", "G", "A", "B"];
+  /** Text objects to label individual notes */
+  private _noteLabels: LabeledNote[] = [];
   /** Octaves represented. 3-5 (C6 isn't a full octave) */
   private _octaves: number[] = [3,4,5];
   /** The song we are currently playing. */
@@ -58,12 +69,15 @@ export class PianoRollScene extends Phaser.Scene {
   private _sharps: string[] = ["C", "F", "G"];  
   /** Sprites that we have loaded (Probably just the keyboard) */
   private _sprites: any = {};
+  /** Number of ticks displayed */
+  private _ticksDisplayed: number = 0;
   /** White keys only **/
   private _whiteKeys: Key[] = [];
 
   // Public members
   /** Our current tick */
   public CurrentTick: number = 0;
+
 
   // Constructor
   constructor() {
@@ -103,13 +117,21 @@ export class PianoRollScene extends Phaser.Scene {
   // Phaser methods
 
   /** Create */
-  create() {
-    this._graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x3b3b3b}});
+  create(data: any) {
+    this._selectedSong = data.song;
+    
+    // this._graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x3b3b3b}});
+    this._graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x3b3b3b}, fillStyle: {color: 0x55CDFC, alpha: 1}});
+
+    this._keyWidth = this.game.scale.gameSize.width / this._whiteKeys.length;
 
     this.game.scale.on('resize', this.resize);
+
     this.createKeyboardSprite();
     this.createGridLines();
     this.createKeyLabels();
+
+    this._info = this.add.text(0, 0, "FPS: 0", { font: '12px Arial' });
   }
 
   /** Preload */
@@ -124,7 +146,7 @@ export class PianoRollScene extends Phaser.Scene {
    * @param {number} delta - Change in time from previous update.
    */
   update(time: number, delta: number) {
-
+    this._info.setText("FPS: " + Math.floor(this.game.loop.actualFps));
 
     // Graphics draw calls
     this._graphics.clear();
@@ -135,6 +157,7 @@ export class PianoRollScene extends Phaser.Scene {
   /** Called with the game space is resized */
   private resize() {
     this._keyWidth = this.game.scale.gameSize.width / (this._keys.filter((key: Key) => !key.flat && !key.sharp).length);
+    this._ticksDisplayed = this.game.scale.gameSize.height;
     this.resizeKeyboardSprite();
     this.resizeGridLines();
     this.resizeKeyLabels();
@@ -167,7 +190,8 @@ export class PianoRollScene extends Phaser.Scene {
       octave,
       pitch: note + (sharp ? '#' : (flat ? '♭' : '')) + octave,
       sharp,
-      flat
+      flat,
+      natural: this.natural(note)
     };
   }
 
@@ -178,6 +202,7 @@ export class PianoRollScene extends Phaser.Scene {
     sprite.displayHeight = 100;
     sprite.x = this.game.scale.gameSize.width / 2;
     sprite.y = this.game.scale.gameSize.height - (sprite.displayHeight/2);
+    sprite.setDepth(5);
 
     this._sprites['keyboard'] = sprite;
   }
@@ -189,6 +214,8 @@ export class PianoRollScene extends Phaser.Scene {
         fill: (key.sharp || key.flat ? '#FFFFFF' : '#000000'),
         font: '12px Arial'
       });
+
+      key.label.setDepth(10);
     });
   }
 
@@ -213,15 +240,102 @@ export class PianoRollScene extends Phaser.Scene {
    * Draws a given track
    */
   private drawTrack(track: any): void {
+
     // TODO: Determine notes actually within our viewable area.
-    track.notes.forEach(this.drawNote);
+    let visibleNotes: any[] = track.notes
+      .filter((note) => {
+        // Note starts in visible area
+        if (note.ticks >= this.CurrentTick && note.ticks <= (this.CurrentTick + this.game.scale.gameSize.height))
+          return true;
+
+        // Note's duration falls within visible area
+        if (note.ticks <= this.CurrentTick && (note.ticks + note.durationTicks >= (this.CurrentTick)))
+          return true;
+
+        return false;
+      })
+      ;
+
+
+    visibleNotes.forEach((note) => { this.drawNote(note, track); });
+
+    // Remove defunct labels
+    let removedLabels: LabeledNote[] = this._noteLabels
+      .filter((note: LabeledNote) => (visibleNotes.indexOf(note.note) === -1 && note.track === track));
+    this._noteLabels = this._noteLabels.filter((label: LabeledNote) => !removedLabels.includes(label));
+    removedLabels.forEach((label: LabeledNote) => { label.label.destroy(); });
   }
 
   /**
    * Draws a given note
    */ 
-  private drawNote(note: any): void {
+  private drawNote(note: any, track: any): void {
+    let translatedNote: TranslatedNote = this.translateNote(note.pitch, note.octave);
 
+    let x: number = 0;
+    let y: number = 0;
+
+    let width: number = this._keyWidth;
+    let height: number = note.durationTicks;
+
+    if (this.isSharp(note.pitch) || this.isFlat(note.pitch))
+      width /= 4;
+    else
+      width /= 2;
+
+    // Determine y
+    // Shift down so y=0 is along bottom line
+    y += this.game.scale.gameSize.height;
+    // Shift up so y=0 is along top of keyboard sprite
+    y -= this._sprites['keyboard'].displayHeight;
+    // Shift up by height of note, so y=h is along bottom line
+    y -= height;
+    // Shift up by difference between current tick and note tick
+    y -= (note.ticks - this.CurrentTick);
+
+    // Determine x
+    // Find the natural note position
+    // x = this._whiteKeys.findIndex((key: Key) => 
+    let natural: string = this.natural(note.pitch);
+    x = this._whiteKeys.findIndex((key: Key) => key.pitch == natural + note.octave);
+    if (x !== -1) {
+
+      x *= this._keyWidth;
+      // if (this.isSharp(note.pitch)) {
+
+      // } else if (this.isFlat(note.pitch)) {
+
+      // } else {
+      //   x += this._keyWidth;
+      // }
+
+      // x -= width / 2;
+
+      x += (this._keyWidth / 2) - (width / 2);
+
+      if (this.isSharp(note.pitch))
+        x += this._keyWidth/2;
+      if (this.isFlat(note.pitch))
+        x -= this._keyWidth/2;
+
+
+      this._graphics.fillRoundedRect(x, y, width, height, 8);
+      this._graphics.strokeRoundedRect(x, y, width, height, 8);
+
+      // Adjust label.
+      let label: LabeledNote = this._noteLabels.find((labeled: LabeledNote) => labeled.note == note);
+      if (!label) {
+        label = {
+          note,
+          track,
+          label: this.add.text(0, 0, note.pitch, {color: '#000000', font: 'Arial 12px'})
+        }
+        this._noteLabels.push(label);
+      }
+
+      label.label.setX(x + (width / 2) - (label.label.displayWidth / 2));
+      label.label.setY(y + height - (label.label.displayHeight * 2));
+    }
   }
 
   /**

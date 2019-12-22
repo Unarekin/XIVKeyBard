@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.updateTimer = setInterval(this.tick, 15);
+    this.updateTimer = setInterval(this.tick, 1);
   }
 
   ngOnDestroy(): void {
