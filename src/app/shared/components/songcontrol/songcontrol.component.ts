@@ -29,6 +29,7 @@ export class SongControlComponent implements OnInit {
   public CurrentTime: number = 0;
   public CurrentTick: number = 0;
   public IsPlaying: boolean = false;
+  public IsPaused: boolean = false;
 
 
   public Icons: any = {
@@ -45,14 +46,27 @@ export class SongControlComponent implements OnInit {
   }
 
   public onSliderChanged($event) {
+    console.log("Slide: ", $event);
     this.CurrentTick = $event.value;
     this.CurrentTime = this.midifile.GetTimeFromTicks(this.SelectedSong, this.CurrentTick)/1000;
     this.onTickChange.emit(this.CurrentTick);
   }
 
 
-  public StopPressed() { this.onStop.emit(); }
-  public StartPressed() { this.onStart.emit(); }
-  public PausePressed() { this.onPause.emit(); }
+  public StopPressed() {
+    this.IsPlaying = false;
+    this.IsPaused = false;
+    this.onStop.emit();
+  }
+  public StartPressed() {
+    this.IsPlaying=true;
+    this.IsPaused = false;
+    this.onStart.emit();
+  }
+  public PausePressed() {
+    this.IsPlaying=false;
+    this.IsPaused = true;
+    this.onPause.emit();
+  }
 
 }

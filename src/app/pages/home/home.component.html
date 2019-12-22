@@ -2,6 +2,12 @@
   <keybard-songselector fxFlexFill (onSongSelected)="SetSelectedSong($event)"></keybard-songselector>
 </div>
 <div *ngIf="SelectedSong" fxFlexFill fxLayout="column">
-  <keybard-songcontrol [SelectedSong]="SelectedSong"></keybard-songcontrol>
+  <keybard-songcontrol
+    [SelectedSong]="SelectedSong"
+    (onTickChange)="TickChange($event)"
+    (onStart)="ScrollStart()"
+    (onStop)="ScrollStop()"
+    (onPause)="ScrollPause()"
+  ></keybard-songcontrol>
   <keybard-pianoroll fxFlex [SelectedSong]="SelectedSong" [CurrentTick]="CurrentTick"></keybard-pianoroll>
 </div>

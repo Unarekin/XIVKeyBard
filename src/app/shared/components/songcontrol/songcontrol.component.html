@@ -1,7 +1,7 @@
 <div fxLayout="column" fxFlex>
   <div fxLayout="row" fxLayoutAlign="center center">
 
-    <button mat-icon-button matTooltip="Stop" (click)="StopPressed()" [disabled]="!IsPlaying">
+    <button mat-icon-button matTooltip="Stop" (click)="StopPressed()" [disabled]="!IsPlaying && !this.IsPaused">
       <fa-icon [icon]="Icons.stop"></fa-icon>
     </button>
     <button mat-icon-button matTooltip="Start" *ngIf="!IsPlaying" (click)="StartPressed()">

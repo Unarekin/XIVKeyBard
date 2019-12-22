@@ -10,13 +10,38 @@ import { PianoRollScene } from './pianoroll.scene';
   styleUrls: ['./pianoroll.component.scss']
 })
 export class PianoRollComponent implements OnInit {
-  @Input()
-  public SelectedSong: Midi = null;
-  @Input()
-  public CurrentTick: number = 0;
+
+  private _currentTick: number = 0;
+  private _selectedSong: Midi = null;
 
   private phaserGame: Phaser.Game = null;
   private phaserConfig: Phaser.Types.Core.GameConfig = null;
+
+  public IsPlaying: boolean = false;
+
+  public get SelectedSong(): Midi { return this._selectedSong; }
+  @Input()
+  public set SelectedSong(value: Midi) {
+    this._selectedSong = value;
+
+    if (this.phaserGame && this.phaserGame.scene)
+      this.phaserGame.scene.start('pianoroll', {song: value});
+  }
+
+
+  public get CurrentTick(): number { return this._currentTick; }
+
+  @Input()
+  public set CurrentTick(value: number) {
+    let oldValue: number = this._currentTick;
+    this._currentTick = value;
+    // console.log("Roll tick: ", value);
+
+    if (this.phaserGame)
+      this.phaserGame.scene.keys['pianoroll'].CurrentTick = value;
+  }
+
+
 
 
 
@@ -36,14 +61,22 @@ export class PianoRollComponent implements OnInit {
 
   ngOnInit() {
     this.phaserGame = new Phaser.Game(this.phaserConfig);
+    this.phaserGame.scene.start('pianoroll', {song: this.SelectedSong});
   }
 
   ngAfterViewInit() {
   }
 
-  public ScrollStart() { }
-  public ScrollStop() { }
-  public ScrollPause() { }
-  public ScrollSeek(time: number) { }
+  public ScrollStart() {
+    this.IsPlaying = true;
+  }
+
+  public ScrollStop() {
+    this.IsPlaying = false;
+    this.CurrentTick = 0;
+  }
+  public ScrollPause() {
+    this.IsPlaying = false;
+  }
 
 }

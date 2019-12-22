@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -15,6 +16,7 @@ import { MaterialModule } from '../material.module';
 
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NgxFileDropModule } from 'ngx-file-drop';
+
 
 import {
   ConfirmationDialogComponent,
@@ -54,7 +56,8 @@ import {
   	FontAwesomeModule,
     MaterialModule,
     ScrollingModule,
-    NgxFileDropModule
+    NgxFileDropModule,
+    BrowserAnimationsModule
   ],
   exports: [
   	TranslateModule,
@@ -69,7 +72,8 @@ import {
     PianoRollComponent,
     SongControlComponent,
     TimeDurationPipe,
-    NgxFileDropModule
+    NgxFileDropModule,
+    BrowserAnimationsModule
   ],
   entryComponents: [
     ConfirmationDialogComponent,
