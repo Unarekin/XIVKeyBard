@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, NgZone, OnDestroy } from '@angular/core';
 import { Midi } from '@tonejs/midi';
 
 import { PianoRollComponent } from '../../shared/components';
+import { MidiFileService } from '../../shared/services';
 
 @Component({
   selector: 'keybard-home',
@@ -15,10 +16,13 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   private updateTimer: any = null;
 
+  private _ticksPerMillisecond: number = 0;
+  private _lastUpdate: number = 0;
+
   // @ViewChild(PianoRollComponent, { static: true })
   // private pianoRoll: PianoRollComponent = null;
 
-  constructor(private zone: NgZone) {
+  constructor(private zone: NgZone, private midifile: MidiFileService) {
     this.SetSelectedSong = this.SetSelectedSong.bind(this);
 
     this.ScrollStart = this.ScrollStart.bind(this);
@@ -31,6 +35,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this._lastUpdate = Date.now();
     this.updateTimer = setInterval(this.tick, 1);
   }
 
@@ -39,11 +44,16 @@ export class HomeComponent implements OnInit, OnDestroy {
       clearInterval(this.updateTimer);
   }
 
-  public SetSelectedSong($event) { this.SelectedSong = $event; }
+  public SetSelectedSong($event) {
+    this.SelectedSong = $event;
+    this._ticksPerMillisecond = 1 / (this.midifile.GetTimeFromTicks($event, 1));
+    console.log("Ticks per ms: ", this._ticksPerMillisecond);
+  }
+
 
   public ScrollStart() {
+    this._lastUpdate = Date.now();
     this.IsPlaying = true;
-    
   }
   public ScrollStop() {
     this.IsPlaying = false;
@@ -53,6 +63,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.IsPlaying = false;
   }
   public ScrollSeek(time: number) { }
+
   public TickChange(tick: number) {
     this.zone.run(() => {
       this.CurrentTick = tick;
@@ -61,7 +72,13 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   private tick() {
     if (this.IsPlaying) {
-      this.zone.run(() => { this.CurrentTick++; })
+      // this.zone.run(() => { this.CurrentTick++; })
+      this.zone.run(() => {
+        // Get current tempo
+        let delta: number = Date.now() - this._lastUpdate;
+        this._lastUpdate = Date.now();
+        this.CurrentTick += (delta * this._ticksPerMillisecond);
+      });
     }
   }
 
