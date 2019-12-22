@@ -1,0 +1,27 @@
+<div fxLayout="column" fxFlex>
+  <div fxLayout="row" fxLayoutAlign="center center">
+
+    <button mat-icon-button matTooltip="Stop" (click)="StopPressed()" [disabled]="!IsPlaying && !this.IsPaused">
+      <fa-icon [icon]="Icons.stop"></fa-icon>
+    </button>
+    <button mat-icon-button matTooltip="Start" *ngIf="!IsPlaying" (click)="StartPressed()">
+      <fa-icon [icon]="Icons.play"></fa-icon>
+    </button>
+    <button mat-icon-button matTooltip="Pause" *ngIf="IsPlaying" (click)="PausePressed()">
+      <fa-icon [icon]="Icons.pause"></fa-icon>
+    </button>
+  </div>
+  <div fxLayout="row">
+    <div>{{CurrentTime |  timeduration}}</div>
+    <mat-slider
+      class="progress-slider"
+      min="0"
+      [max]="SelectedSong?.durationTicks"
+      step="1"
+      [value]="CurrentTick"
+      (input)="onSliderChanged($event)"
+      fxFlex
+      >
+    </mat-slider>
+    <div>{{SelectedSong?.duration | timeduration}}</div>
+</div>

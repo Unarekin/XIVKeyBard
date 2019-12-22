@@ -1,0 +1,14 @@
+.wrapper {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.container {
+  // border: 1px solid red;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}

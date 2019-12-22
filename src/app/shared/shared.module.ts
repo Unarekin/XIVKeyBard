@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -16,10 +17,13 @@ import { MaterialModule } from '../material.module';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NgxFileDropModule } from 'ngx-file-drop';
 
+
 import {
   ConfirmationDialogComponent,
   PromptDialogComponent,
-  SongSelectorComponent
+  SongSelectorComponent,
+  PianoRollComponent,
+  SongControlComponent
 } from './components';
 
 import {
@@ -29,13 +33,20 @@ import {
   SettingsService
 } from './services';
 
+import {
+  TimeDurationPipe
+} from './pipes';
+
 @NgModule({
   declarations: [
   	PageNotFoundComponent,
   	WebviewDirective,
   	ConfirmationDialogComponent,
   	PromptDialogComponent,
-    SongSelectorComponent
+    SongSelectorComponent,
+    PianoRollComponent,
+    SongControlComponent,
+    TimeDurationPipe
   ],
   imports: [
   	CommonModule,
@@ -45,7 +56,8 @@ import {
   	FontAwesomeModule,
     MaterialModule,
     ScrollingModule,
-    NgxFileDropModule
+    NgxFileDropModule,
+    BrowserAnimationsModule
   ],
   exports: [
   	TranslateModule,
@@ -57,7 +69,11 @@ import {
     BrowserModule,
     MaterialModule,
     SongSelectorComponent,
-    NgxFileDropModule
+    PianoRollComponent,
+    SongControlComponent,
+    TimeDurationPipe,
+    NgxFileDropModule,
+    BrowserAnimationsModule
   ],
   entryComponents: [
     ConfirmationDialogComponent,

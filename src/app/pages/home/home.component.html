@@ -1,4 +1,14 @@
 <div *ngIf="!SelectedSong" fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
-	<keybard-songselector fxFlexFill (onSongSelected)="SetSelectedSong($event)"></keybard-songselector>
+  <keybard-songselector fxFlexFill (onSongSelected)="SetSelectedSong($event)"></keybard-songselector>
 </div>
-<div *ngIf="SelectedSong">Song selected: {{SelectedSong.name}}</div>
+<div *ngIf="SelectedSong" fxFlexFill fxLayout="column">
+  <keybard-songcontrol
+    [SelectedSong]="SelectedSong"
+    [(CurrentTick)]="CurrentTick"
+    (onTickChange)="TickChange($event)"
+    (onStart)="ScrollStart()"
+    (onStop)="ScrollStop()"
+    (onPause)="ScrollPause()"
+  ></keybard-songcontrol>
+  <keybard-pianoroll fxFlex [SelectedSong]="SelectedSong" [CurrentTick]="CurrentTick"></keybard-pianoroll>
+</div>

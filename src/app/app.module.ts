@@ -36,12 +36,12 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
     CoreModule,
     SharedModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
