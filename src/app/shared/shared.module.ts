@@ -24,7 +24,8 @@ import {
   PromptDialogComponent,
   SongSelectorComponent,
   PianoRollComponent,
-  SongControlComponent
+  SongControlComponent,
+  SongSettingsComponent
 } from './components';
 
 import {
@@ -47,7 +48,8 @@ import {
     SongSelectorComponent,
     PianoRollComponent,
     SongControlComponent,
-    TimeDurationPipe
+    TimeDurationPipe,
+    SongSettingsComponent
   ],
   imports: [
   	CommonModule,
