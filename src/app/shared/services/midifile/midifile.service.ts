@@ -12,6 +12,8 @@ export class MidiFileService {
     this.LoadFromBuffer = this.LoadFromBuffer.bind(this);
     this.LoadFromDisk = this.LoadFromDisk.bind(this);
     this.LoadFromURL = this.LoadFromURL.bind(this);
+    this.GetFileList = this.GetFileList.bind(this);
+    this.GetTimeFromTicks = this.GetTimeFromTicks.bind(this);
   }
 
   /**
@@ -55,11 +57,7 @@ export class MidiFileService {
       .filter((tempo: any) => tempo.ticks <= ticks)
       .sort((a, b) => a.ticks < b.ticks ? 1 : -1)
       [0];
-
-    // console.log("Tempos: ", song.header.tempos);
-    // console.log("Tempo: ", tempo);
-    // 60000 / (BPM * PPQ)
-    let ticksPerMS = (60000 / (tempo.bpm * song.header.ppq));
-    return ticks * ticksPerMS;
+    let ms: number = ticks * (60000 / (song.header.ppq * tempo.bpm));
+    return ms;
   }
 }

@@ -20,7 +20,9 @@
       step="1"
       [value]="CurrentTick"
       (input)="onSliderChanged($event)"
+      [displayWith]="formatLabel"
       fxFlex
+      [ngClass]="{'disableAnmimation':DisableAnimation}"
       >
     </mat-slider>
     <div>{{SelectedSong?.duration | timeduration}}</div>

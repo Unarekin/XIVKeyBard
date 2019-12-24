@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GestureConfig } from '@angular/material';
 
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -83,7 +84,8 @@ import {
     MidiControllerService,
     MidiFileService,
     IPCService,
-    SettingsService
+    SettingsService,
+    { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }
   ]
 })
 export class SharedModule {}

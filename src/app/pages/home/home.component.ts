@@ -36,7 +36,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this._lastUpdate = Date.now();
-    this.updateTimer = setInterval(this.tick, 1);
+    // this.updateTimer = setInterval(this.tick, 1);
+    this.tick();
   }
 
   ngOnDestroy(): void {
@@ -71,15 +72,19 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   private tick() {
-    if (this.IsPlaying) {
-      // this.zone.run(() => { this.CurrentTick++; })
-      this.zone.run(() => {
-        // Get current tempo
-        let delta: number = Date.now() - this._lastUpdate;
-        this._lastUpdate = Date.now();
-        this.CurrentTick += (delta * this._ticksPerMillisecond);
-      });
-    }
+    window.requestAnimationFrame(() => {
+      if (this.IsPlaying) {
+        // this.zone.run(() => { this.CurrentTick++; })
+        this.zone.run(() => {
+          // Get current tempo
+          let delta: number = Date.now() - this._lastUpdate;
+          this._lastUpdate = Date.now();
+          this.CurrentTick += (delta * this._ticksPerMillisecond);
+        });
+      }
+    });
+
+    setImmediate(this.tick);
   }
 
 }
