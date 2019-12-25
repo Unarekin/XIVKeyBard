@@ -5499,6 +5499,11 @@ invariant@^2.2.2:
   dependencies:
     loose-envify "^1.0.0"
 
+invert-color@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/invert-color/-/invert-color-2.0.0.tgz#894ab1f7494a6e45f5e74c2f99ec042cd67dd23e"
+  integrity sha512-9s6IATlhOAr0/0MPUpLdMpk81ixIu8IqwPwORssXBauFT/4ff/iyEOcojd0UYuPwkDbJvL1+blIZGhqVIaAm5Q==
+
 invert-kv@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/invert-kv/-/invert-kv-2.0.0.tgz#7393f5afa59ec9ff5f67a27620d11c226e3eec02"
@@ -6968,6 +6973,11 @@ neo-async@^2.5.0, neo-async@^2.6.0, neo-async@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
   integrity sha512-iyam8fBuCUpWeKPGpaNMetEocMt364qkCsfL9JuhjXX6dRnguRVOfk2GZaDpPjcOKiiXCPINZC1GczQ7iTq3Zw==
+
+ngx-color-picker@8.2.0:
+  version "8.2.0"
+  resolved "https://registry.yarnpkg.com/ngx-color-picker/-/ngx-color-picker-8.2.0.tgz#36b2e7f173e006f680dea39743d0bfc6c2531454"
+  integrity sha512-rzR+cByjNG9M/UskU5vNoH7cUc6oM8STTDFKOZmnlX4ALOuM1+61CBjsNTGETWfo9a/h5mbGX02oh5/iNAa7vA==
 
 ngx-file-drop@8.0.8:
   version "8.0.8"

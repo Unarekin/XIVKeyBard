@@ -18,6 +18,7 @@ import { MaterialModule } from '../material.module';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NgxFileDropModule } from 'ngx-file-drop';
 
+import { ColorPickerModule } from 'ngx-color-picker';
 
 import {
   ConfirmationDialogComponent,
@@ -25,14 +26,17 @@ import {
   SongSelectorComponent,
   PianoRollComponent,
   SongControlComponent,
-  SongSettingsComponent
+  SongSettingsComponent,
+  TrackListingComponent
 } from './components';
 
 import {
   MidiControllerService,
   MidiFileService,
   IPCService,
-  SettingsService
+  SettingsService,
+  ColorsService,
+  SongplayerService
 } from './services';
 
 import {
@@ -49,7 +53,8 @@ import {
     PianoRollComponent,
     SongControlComponent,
     TimeDurationPipe,
-    SongSettingsComponent
+    SongSettingsComponent,
+    TrackListingComponent
   ],
   imports: [
   	CommonModule,
@@ -60,7 +65,8 @@ import {
     MaterialModule,
     ScrollingModule,
     NgxFileDropModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ColorPickerModule
   ],
   exports: [
   	TranslateModule,
@@ -74,9 +80,12 @@ import {
     SongSelectorComponent,
     PianoRollComponent,
     SongControlComponent,
+    SongSettingsComponent,
+    TrackListingComponent,
     TimeDurationPipe,
     NgxFileDropModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ColorPickerModule
   ],
   entryComponents: [
     ConfirmationDialogComponent,
@@ -87,6 +96,8 @@ import {
     MidiFileService,
     IPCService,
     SettingsService,
+    ColorsService,
+    SongplayerService,
     { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }
   ]
 })

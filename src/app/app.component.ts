@@ -1,4 +1,4 @@
-import { Component, NgZone } from '@angular/core';
+import { Component, NgZone, ViewContainerRef } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { ElectronService } from './core/services';
 import { TranslateService } from '@ngx-translate/core';
@@ -33,7 +33,8 @@ export class AppComponent {
     private translate: TranslateService,
     private settings: SettingsService,
     private router: Router,
-    private zone: NgZone
+    private zone: NgZone,
+    public vcRef: ViewContainerRef
   ) {
     translate.addLangs(['en', 'es']);
 

@@ -1,5 +1,6 @@
 import * as Phaser from 'phaser';
 import { Midi } from '@tonejs/midi';
+import { TrackSettings, ColorSet } from '../../interfaces';
 
 interface Key {
   note: string,
@@ -78,6 +79,9 @@ export class PianoRollScene extends Phaser.Scene {
   /** Our current tick */
   public CurrentTick: number = 0;
 
+  /** Settings for individual tracks */
+  public TrackSettings: TrackSettings[] = [];
+
 
   // Constructor
   constructor() {
@@ -119,6 +123,7 @@ export class PianoRollScene extends Phaser.Scene {
   /** Create */
   create(data: any) {
     this._selectedSong = data.song;
+    this.TrackSettings = data.settings || {};
     
     // this._graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x3b3b3b}});
     this._graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x3b3b3b}, fillStyle: {color: 0x55CDFC, alpha: 1}});
@@ -232,14 +237,21 @@ export class PianoRollScene extends Phaser.Scene {
    * Draws the selected song to screen
    */
   private drawSong(): void {
-    if (this._selectedSong)
-      this._selectedSong.tracks.forEach(this.drawTrack);
+    if (this._selectedSong) {
+      this._selectedSong
+        .tracks
+        .forEach((track: any, index: number) => {
+          if (this.TrackSettings[index] && this.TrackSettings[index].display)
+            this.drawTrack(track, index);
+        });
+    }
   }
 
   /**
    * Draws a given track
    */
-  private drawTrack(track: any): void {
+  private drawTrack(track: any, index: number): void {
+    let settings: TrackSettings = (this.TrackSettings[index] ? this.TrackSettings[index] : {display: true, octave: 0, colors: {foreground: '#000000', background: '#FFFFFF', blackorwhite: '#000000'}});
 
     // TODO: Determine notes actually within our viewable area.
     let visibleNotes: any[] = track.notes
@@ -257,7 +269,7 @@ export class PianoRollScene extends Phaser.Scene {
       ;
 
 
-    visibleNotes.forEach((note) => { this.drawNote(note, track); });
+    visibleNotes.forEach((note) => { this.drawNote(note, track, settings); });
 
     // Remove defunct labels
     let removedLabels: LabeledNote[] = this._noteLabels
@@ -269,7 +281,7 @@ export class PianoRollScene extends Phaser.Scene {
   /**
    * Draws a given note
    */ 
-  private drawNote(note: any, track: any): void {
+  private drawNote(note: any, track: any, settings: TrackSettings): void {
     let translatedNote: TranslatedNote = this.translateNote(note.pitch, note.octave);
 
     let x: number = 0;
@@ -319,8 +331,10 @@ export class PianoRollScene extends Phaser.Scene {
         x -= this._keyWidth/2;
 
 
+      let fillColor: number = parseInt(settings.colors.background.replace(/^#/, ''), 16);
+      this._graphics.fillStyle(fillColor);
       this._graphics.fillRoundedRect(x, y, width, height, 8);
-      this._graphics.strokeRoundedRect(x, y, width, height, 8);
+      // this._graphics.strokeRoundedRect(x, y, width, height, 8);
 
       // Adjust label.
       let label: LabeledNote = this._noteLabels.find((labeled: LabeledNote) => labeled.note == note);
