@@ -27,10 +27,14 @@
       <fa-icon [icon]="Icons.add"></fa-icon>
     </button>
   </div>
-  <mat-toolbar class="settings-footer" fxLayout="row" fxLayoutAlign="end center">
+  <mat-toolbar class="settings-footer" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="25px">
+    <button mat-raised-button color="warn" (click)="Cancel()">
+      <fa-icon [icon]="Icons.cancel"></fa-icon>
+      {{'DIALOGS.CONFIRMATION.CANCEL' | translate}}
+    </button>
     <button mat-raised-button color="primary" (click)="Save()">
       <fa-icon [icon]="Icons.save"></fa-icon>
-      Save
+      {{'DIALOGS.CONFIRMATION.OK' | translate}}
     </button>
   </mat-toolbar>
 </div>

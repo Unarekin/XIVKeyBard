@@ -1,10 +1,13 @@
-import { Component, NgZone, ViewContainerRef } from '@angular/core';
+import { Component, NgZone, ViewContainerRef, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { ElectronService } from './core/services';
 import { TranslateService } from '@ngx-translate/core';
 import { AppConfig } from '../environments/environment';
+import { MatDialog } from '@angular/material';
 
 import { SettingsService } from './shared/services';
+import { SettingsDialogComponent } from './shared/components';
+import { HomeComponent } from './pages/home/home.component';
 
 import {
   faCog,
@@ -24,7 +27,9 @@ export class AppComponent {
     back: faChevronLeft
   };
 
+
   public get CurrentRoute(): string { return this._currentRoute; }
+  private _homeComponent: HomeComponent = null;
 
   
 
@@ -34,8 +39,15 @@ export class AppComponent {
     private settings: SettingsService,
     private router: Router,
     private zone: NgZone,
-    public vcRef: ViewContainerRef
+    public vcRef: ViewContainerRef,
+    private dialog: MatDialog,
+    private changeRef: ChangeDetectorRef
   ) {
+
+    this.ClearSongSelection = this.ClearSongSelection.bind(this);
+    this.ShowSettingsDialog = this.ShowSettingsDialog.bind(this);
+    this.onRouteActivate = this.onRouteActivate.bind(this);
+
     translate.addLangs(['en', 'es']);
 
     translate.setDefaultLang(settings.Has("defaultLang") ? settings.Get("defaultLang") : 'en');
@@ -60,4 +72,36 @@ export class AppComponent {
       }
     });
   }
+
+  public ClearSongSelection() {
+    if (this._homeComponent)
+      this._homeComponent.SelectedSong=null;
+  }
+
+  public ShowSettingsDialog() {
+    let dialogRef = this.dialog.open(SettingsDialogComponent, {
+      width: '50%',
+      height: '75%',
+      disableClose: true,
+      panelClass: 'settings-dialog'
+    });
+  }
+
+  public onRouteActivate(ref) {
+    if (ref instanceof HomeComponent)
+      this._homeComponent = ref;
+  }
 }
+
+
+/*
+  private confirmationDialog(message: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+        width: '350px',
+        data: message
+      });
+      dialogRef.afterClosed().subscribe(resolve);
+    });
+  }
+*/

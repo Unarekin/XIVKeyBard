@@ -12,6 +12,7 @@
       "TITLE": "KeyBard"
     },
     "SETTINGS": {
+      "TITLE": "Application Settings",
       "LANGUAGE": "Language",
       "DIRECTORIES": "Song Paths",
       "ADDDIRECTORY": "Add Directory",

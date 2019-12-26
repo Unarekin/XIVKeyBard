@@ -1,23 +1,20 @@
 <div fxLayout="column" fxFlexFill>
   <mat-toolbar class="toolbar" fxLayout="row">
-    <div fxFlex>
-      <a routerLink="home" fxLayout="row" fxLayoutAlign="start center">
+    <div fxFlex fxLayoutAlign="start start">
+      <a (click)="ClearSongSelection()" fxLayout="row" fxLayoutAlign="start center">
         <div>
           <img src="/assets/images/bard-icon.png">
         </div>
         <h2>KeyBard</h2>
       </a>
     </div>
-    <button mat-icon-button matTooltip="Settings" routerLink="/settings" *ngIf="CurrentRoute != '/settings'">
+    <button mat-icon-button matTooltip="Settings" (click)="ShowSettingsDialog()">
       <fa-icon [icon]="Icons.settings"></fa-icon>
-    </button>
-    <button mat-icon-button matTooltip="Back" routerLink="/home" *ngIf="CurrentRoute != '/home'">
-      <fa-icon [icon]="Icons.back"></fa-icon>
     </button>
 
   </mat-toolbar>
   <div fxFlex class="content">
-    <router-outlet></router-outlet>
+    <router-outlet (activate)="onRouteActivate($event)"></router-outlet>
   </div>
 </div>
 

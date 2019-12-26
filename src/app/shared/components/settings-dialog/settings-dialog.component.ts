@@ -1,31 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
-import { SettingsService } from '../../shared/services';
-import {
-  ConfirmationDialogComponent,
-  PromptDialogComponent
-} from '../../shared/components';
+import { SettingsService } from '../../services';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { PromptDialogComponent } from '../prompt-dialog/prompt-dialog.component';
 
 
 import {
-  faSave,
+  faCheck,
   faPlus,
   faTrash,
-  faEdit
+  faEdit,
+  faTimes
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'keybard-settings',
-  templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss']
+  templateUrl: './settings-dialog.component.html',
+  styleUrls: ['./settings-dialog.component.scss']
 })
-export class SettingsComponent implements OnInit {
+export class SettingsDialogComponent implements OnInit {
   private _allLanguages: any = require('./languages.json');
 
   public Icons: any = {
-    save: faSave,
+    save: faCheck,
+    cancel: faTimes,
     add: faPlus,
     remove: faTrash,
     edit: faEdit
@@ -41,7 +41,9 @@ export class SettingsComponent implements OnInit {
   constructor(
     private translate: TranslateService,
     private settings: SettingsService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private dialogRef: MatDialogRef<SettingsDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) data: any
   ) {
     this.onLanguageChange = this.onLanguageChange.bind(this);
     this.removeDirectory = this.removeDirectory.bind(this);
@@ -128,6 +130,12 @@ export class SettingsComponent implements OnInit {
   public Save() {
     this.settings.Set<string>("currentLang", this.CurrentLanguage);
     this.settings.Set<string[]>("songDirectories", this.LibraryPaths);
+
+    this.dialogRef.close();
+  }
+
+  public Cancel() {
+    this.dialogRef.close();
   }
 
   public AddPath() {

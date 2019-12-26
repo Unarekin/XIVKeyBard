@@ -27,7 +27,8 @@ import {
   PianoRollComponent,
   SongControlComponent,
   SongSettingsComponent,
-  TrackListingComponent
+  TrackListingComponent,
+  SettingsDialogComponent
 } from './components';
 
 import {
@@ -54,7 +55,8 @@ import {
     SongControlComponent,
     TimeDurationPipe,
     SongSettingsComponent,
-    TrackListingComponent
+    TrackListingComponent,
+    SettingsDialogComponent
   ],
   imports: [
   	CommonModule,
@@ -82,6 +84,7 @@ import {
     SongControlComponent,
     SongSettingsComponent,
     TrackListingComponent,
+    SettingsDialogComponent,
     TimeDurationPipe,
     NgxFileDropModule,
     BrowserAnimationsModule,
@@ -89,7 +92,8 @@ import {
   ],
   entryComponents: [
     ConfirmationDialogComponent,
-    PromptDialogComponent
+    PromptDialogComponent,
+    SettingsDialogComponent
   ],
   providers: [
     MidiControllerService,

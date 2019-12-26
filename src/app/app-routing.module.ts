@@ -7,7 +7,6 @@ import { SharedModule } from './shared/shared.module';
 // import { SettingsModule } from './pages/settings/settings.module';
 
 import { HomeComponent } from './pages/home/home.component';
-import { SettingsComponent } from './pages/settings/settings.component';
 
 
 const routes: Routes = [
@@ -22,11 +21,6 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'settings',
-    pathMatch: 'full',
-    component: SettingsComponent
-  },
-  {
     path: '**',
     component: PageNotFoundComponent
   }
@@ -34,12 +28,11 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    HomeComponent,
-    SettingsComponent
+    HomeComponent
   ],
   imports: [
     SharedModule,
-    RouterModule.forRoot(routes, { useHash: true })
+    RouterModule.forRoot(routes, { useHash: true, onSameUrlNavigation: 'reload' })
   ],
   exports: [
     RouterModule

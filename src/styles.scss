@@ -10,6 +10,16 @@ html, body {
 }
 
 
+.settings-dialog {
+  mat-dialog-container {
+    background-color: #43464b;
+  }
+}
+
+
+
+/* Loader */
+
 .loader {
   background-color: rgba(0,0,0,0.9);
   position: absolute;
