@@ -56,7 +56,11 @@ export class MidiFileService {
     let tempo = song.header.tempos
       .filter((tempo: any) => tempo.ticks <= ticks)
       .sort((a, b) => a.ticks < b.ticks ? 1 : -1)
-      [0];
+      [0] || song.header.tempos[0];
+
+    if (!tempo)
+      tempo = {bpm: 120, ticks: 0};
+
     let ms: number = ticks * (60000 / (song.header.ppq * tempo.bpm));
     return ms;
   }

@@ -1,0 +1,111 @@
+<div fxLayout="row" fxLayoutGap="10px">
+  <div fxFlex fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="center">
+    <div class="song-title">{{Track.name || '(Untitled)'}}</div>
+    <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start center">
+      <div>Octave Shift:</div>
+      <div fxFlex></div>
+      <div class="small">
+        <mat-form-field>
+          <input type="number" matNativeControl [(ngModel)]="Settings.octave" (change)="OctaveShiftChange($event)">
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start center">
+      <div>BG:</div>
+      <div
+        class="color-block"
+        [style.background-color]="Settings.colors.background"
+        [colorPicker]="Settings.colors.background"
+        [cpPosition]="'bottom-left'"
+        (colorPickerSelect)="ChangeColorBG($event)"
+        [cpCancelButton]="true"
+        [cpOKButton]="true"
+        [cpSaveClickOutside]="false"
+        [cpUseRootViewContainer]="true"
+        [(cpToggle)]="ShowBGPicker"
+        (click)="ShowBGPicker=true"
+      ></div>
+      <div fxFlex></div>
+      <div>FG:</div>
+      <div
+        class="color-block"
+        [style.background-color]="Settings.colors.foreground"
+        [colorPicker]="Settings.colors.foreground"
+        [cpPosition]="'bottom-left'"
+        (colorPickerSelect)="ChangeColorFG($event)"
+        [cpCancelButton]="true"
+        [cpOKButton]="true"
+        [cpSaveClickOutside]="false"
+        [cpUseRootViewContainer]="true"
+        [(cpToggle)]="ShowFGPicker"
+        (click)="ShowFGPicker=true"
+      ></div>
+      <div fxFlex>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <button mat-icon-button matTooltip="Jump to beginning of track" (click)="JumpToTrack()">
+      <fa-icon [icon]="Icons.jump"></fa-icon>
+    </button>
+    <button mat-icon-button *ngIf="Settings.display" (click)="Settings.display = false" class="small-button">
+      <fa-icon [icon]="Icons.visible"></fa-icon>
+    </button>
+    <button mat-icon-button *ngIf="!Settings.display" (click)="Settings.display = true" class="small-button">
+      <fa-icon [icon]="Icons.invisible"></fa-icon>
+    </button>
+  </div>
+</div>
+
+<!-- <mat-list-item>
+  <mat-icon matListIcon>
+    <mat-checkbox [(ngModel)]="Settings.display"></mat-checkbox>
+  </mat-icon>
+  <div fxLayout="row">
+    <div>
+      <h2 matLine>{{Track.name ? Track.name : "(Untitled)"}}</h2>
+      <p matLine>Octave</p>
+      <p matLine>
+        <span>
+          BG:
+          <div
+            class="color-block"
+            [style.background-color]="Settings.colors.background"
+            [colorPicker]="Settings.colors.background"
+            [cpPosition]="'bottom-left'"
+            (colorPickerSelect)="ChangeColorBG($event)"
+            [cpCancelButton]="true"
+            [cpOKButton]="true"
+            [cpSaveClickOutside]="false"
+            [cpUseRootViewContainer]="true"
+            [(cpToggle)]="ShowBGPicker"
+            (click)="ShowBGPicker=true"
+          ></div>
+        </span>
+        <span>
+          FG:
+          <div
+            class="color-block"
+            [style.background-color]="Settings.colors.foreground"
+            [colorPicker]="Settings.colors.foreground"
+            [cpPosition]="'bottom-left'"
+            (colorPickerSelect)="ChangeColorFG($event)"
+            [cpCancelButton]="true"
+            [cpOKButton]="true"
+            [cpSaveClickOutside]="false"
+            [cpUseRootViewContainer]="true"
+            [(cpToggle)]="ShowFGPicker"
+            (click)="ShowFGPicker=true"
+          ></div>
+        </span>
+      </p>
+    </div>
+    <div>
+      <p matLine>
+        <button mat-icon-button matTooltip="Jump to beginning of track">
+          <fa-icon [icon]="Icons.jump"></fa-icon>
+        </button>
+      </p>
+    </div>
+  </div>
+</mat-list-item> -->

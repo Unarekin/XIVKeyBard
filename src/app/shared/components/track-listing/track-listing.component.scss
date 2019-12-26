@@ -1,0 +1,50 @@
+.mat-list-item {
+  color: white;
+  font-size: .75em;
+}
+
+.song-title {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.color-block {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  border-radius: 4px;
+  margin: 2px;
+  // position: relative;
+  // top: 4px;
+}
+
+.small-button {
+  width: 14px;
+  height: 14px;
+  font-size: 12px;
+  line-height: 12px;
+}
+
+.small {
+
+  mat-form-field {
+    width: 50px;
+
+    ::ng-deep .mat-form-field-wrapper {
+      padding-bottom: 2px;
+    }
+
+    ::ng-deep .mat-form-field-infix {
+      padding-top: 2px;
+    }
+
+    ::ng-deep .mat-form-field-underline {
+      top: 35px;
+    }
+  }
+
+  
+// body > app-root > div > div > keybard-home > div > div > keybard-songsettings > div > div > div:nth-child(5) > keybard-track-listing > div > div:nth-child(1) > div:nth-child(2) > div.small > mat-form-field > div
+
+
+}

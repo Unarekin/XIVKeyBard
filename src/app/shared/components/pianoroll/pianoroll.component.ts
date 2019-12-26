@@ -1,7 +1,8 @@
-import { Input, Component, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Input, Component, OnInit, OnDestroy, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { Midi } from '@tonejs/midi';
 import * as Phaser from 'phaser';
 
+import { TrackSettings } from '../../interfaces';
 import { PianoRollScene } from './pianoroll.scene';
 
 @Component({
@@ -9,7 +10,7 @@ import { PianoRollScene } from './pianoroll.scene';
   templateUrl: './pianoroll.component.html',
   styleUrls: ['./pianoroll.component.scss']
 })
-export class PianoRollComponent implements OnInit {
+export class PianoRollComponent implements OnInit, OnDestroy {
 
   private _currentTick: number = 0;
   private _selectedSong: Midi = null;
@@ -41,6 +42,17 @@ export class PianoRollComponent implements OnInit {
       this.phaserGame.scene.keys['pianoroll'].CurrentTick = value;
   }
 
+  private _trackSettings: TrackSettings[] = [];
+  @Input()
+  public get TrackSettings(): TrackSettings[] {
+    return this._trackSettings;
+  }
+  public set TrackSettings(value: TrackSettings[]) {
+    this._trackSettings = value;
+
+    if (this.phaserGame && this.phaserGame.scene)
+      this.phaserGame.scene.keys['pianoroll'].TrackSettings = value;
+  }
 
 
 
@@ -61,7 +73,12 @@ export class PianoRollComponent implements OnInit {
 
   ngOnInit() {
     this.phaserGame = new Phaser.Game(this.phaserConfig);
-    this.phaserGame.scene.start('pianoroll', {song: this.SelectedSong});
+    this.phaserGame.scene.start('pianoroll', {song: this.SelectedSong, settings: this.TrackSettings});
+  }
+
+  ngOnDestroy() {
+    console.log("Destroying pianoroll component.");
+    this.phaserGame.destroy(true);
   }
 
   ngAfterViewInit() {

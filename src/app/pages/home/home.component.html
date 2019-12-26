@@ -10,5 +10,19 @@
     (onStop)="ScrollStop()"
     (onPause)="ScrollPause()"
   ></keybard-songcontrol>
-  <keybard-pianoroll fxFlex [SelectedSong]="SelectedSong" [CurrentTick]="CurrentTick"></keybard-pianoroll>
+  <div fxLayout="row" fxFlex>
+    <keybard-pianoroll
+      fxFlex
+      [SelectedSong]="SelectedSong"
+      [CurrentTick]="CurrentTick"
+      [TrackSettings]="TrackSettings"
+      (onToggleAudio)="ToggleAudio($event)"
+    ></keybard-pianoroll>
+    <keybard-songsettings
+      [SelectedSong]="SelectedSong"
+      [TrackSettings]="TrackSettings"
+      (onScrollToTick)="onScrollToTick($event)"
+      (onToggleAudio)="ToggleAudio($event)"
+    ></keybard-songsettings>
+  </div>
 </div>

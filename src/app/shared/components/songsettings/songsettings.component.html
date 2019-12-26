@@ -1,0 +1,43 @@
+<div class="container" fxFlex>
+  <div class="inner-container" fxLayout="column" fxLayoutGap="15px">
+    <h2>Song Settings</h2>
+    <div fxLayout="row" fxLayoutGap="10px">
+      <div fxFlex>Hide/Display All</div>
+      <mat-checkbox (change)="ToggleAll($event)" [checked]="true"></mat-checkbox>
+    </div>
+    <div fxLayout="row" fxLayoutGap="10px">
+      <div fxFlex>Play Audio</div>
+      <mat-checkbox [value]="PlayAudio" (change)="ToggleAudio($event)"></mat-checkbox>
+    </div>
+    <mat-divider></mat-divider>
+    <div *ngFor="let Track of SelectedSong.tracks; index as index">
+      <keybard-track-listing
+        [Track]="Track"
+        [Settings]="TrackSettings[index]"
+        (onScrollToTick)="ScrollToTick($event)"
+      ></keybard-track-listing>
+      <mat-divider></mat-divider>
+    </div>
+    <!--
+    <mat-list>
+      <mat-list-item>
+        <mat-icon matListIcon>
+          <mat-checkbox (change)="ToggleAll($event)" [checked]="true"></mat-checkbox>
+        </mat-icon>
+        <h3 matLine>Show/Hide All</h3>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon matListIcon>
+          <mat-checkbox [checked]="PlayAudio"></mat-checkbox>
+        </mat-icon>
+        <h3 matLine>Play Audio</h3>
+      </mat-list-item>
+      <keybard-track-listing
+        *ngFor="let Track of SelectedSong.tracks; index as index"
+        [Track]="Track"
+        [Settings]="TrackSettings[index]"
+      ></keybard-track-listing>
+    </mat-list>
+    -->
+  </div>
+</div>
