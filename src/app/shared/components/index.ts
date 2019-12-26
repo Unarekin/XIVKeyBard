@@ -7,4 +7,3 @@ export * from './pianoroll/pianoroll.component';
 export * from './songcontrol/songcontrol.component';
 export * from './songsettings/songsettings.component';
 export * from './track-listing/track-listing.component';
-export * from './numerictextbox/numerictextbox.component';
