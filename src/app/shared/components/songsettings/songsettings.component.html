@@ -9,12 +9,15 @@
       <div fxFlex>Play Audio</div>
       <mat-checkbox [value]="PlayAudio" (change)="ToggleAudio($event)"></mat-checkbox>
     </div>
-    <keybard-track-listing
-      *ngFor="let Track of SelectedSong.tracks; index as index"
-      [Track]="Track"
-      [Settings]="TrackSettings[index]"
-      (onScrollToTick)="ScrollToTick($event)"
-    ></keybard-track-listing>
+    <mat-divider></mat-divider>
+    <div *ngFor="let Track of SelectedSong.tracks; index as index">
+      <keybard-track-listing
+        [Track]="Track"
+        [Settings]="TrackSettings[index]"
+        (onScrollToTick)="ScrollToTick($event)"
+      ></keybard-track-listing>
+      <mat-divider></mat-divider>
+    </div>
     <!--
     <mat-list>
       <mat-list-item>

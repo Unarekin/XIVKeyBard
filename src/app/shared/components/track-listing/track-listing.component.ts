@@ -3,7 +3,7 @@ import { TrackSettings, ColorSet } from '../../interfaces';
 import { Midi } from '@tonejs/midi';
 
 import {
-  faArrowsAltV,
+  faRedo,
   faEye,
   faEyeSlash
 } from '@fortawesome/free-solid-svg-icons';
@@ -16,7 +16,7 @@ import {
 export class TrackListingComponent implements OnInit {
 
   public Icons: any = {
-    jump: faArrowsAltV,
+    jump: faRedo,
     visible: faEye,
     invisible: faEyeSlash
   }
@@ -39,6 +39,7 @@ export class TrackListingComponent implements OnInit {
     this.ChangeColorBG = this.ChangeColorBG.bind(this);
     this.ChangeColorFG = this.ChangeColorFG.bind(this);
     this.JumpToTrack = this.JumpToTrack.bind(this);
+    this.OctaveShiftChange = this.OctaveShiftChange.bind(this);
   }
 
   ngOnInit() {
@@ -57,5 +58,10 @@ export class TrackListingComponent implements OnInit {
     let firstTick: number = this.Track.notes.reduce((curr, prev) => curr.ticks < prev.ticks ? curr : prev).ticks;
     // console.log("First: ", firstTick);
     this.onScrollToTick.emit(firstTick);
+  }
+
+  public OctaveShiftChange($event) {
+    console.log("Octave shift: ", $event);
+    console.log(this.Settings.octave);
   }
 }

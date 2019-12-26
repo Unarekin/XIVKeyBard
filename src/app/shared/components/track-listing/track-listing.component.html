@@ -1,6 +1,15 @@
 <div fxLayout="row" fxLayoutGap="10px">
   <div fxFlex fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="center">
-    <div>{{Track.name || '(Untitled)'}}</div>
+    <div class="song-title">{{Track.name || '(Untitled)'}}</div>
+    <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start center">
+      <div>Octave Shift:</div>
+      <div fxFlex></div>
+      <div class="small">
+        <mat-form-field>
+          <input type="number" matNativeControl [(ngModel)]="Settings.octave" (change)="OctaveShiftChange($event)">
+        </mat-form-field>
+      </div>
+    </div>
     <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start center">
       <div>BG:</div>
       <div

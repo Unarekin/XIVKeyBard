@@ -27,7 +27,8 @@ import {
   PianoRollComponent,
   SongControlComponent,
   SongSettingsComponent,
-  TrackListingComponent
+  TrackListingComponent,
+  NumericTextBoxComponent
 } from './components';
 
 import {
@@ -54,7 +55,8 @@ import {
     SongControlComponent,
     TimeDurationPipe,
     SongSettingsComponent,
-    TrackListingComponent
+    TrackListingComponent,
+    NumericTextBoxComponent
   ],
   imports: [
   	CommonModule,
@@ -82,6 +84,7 @@ import {
     SongControlComponent,
     SongSettingsComponent,
     TrackListingComponent,
+    NumericTextBoxComponent,
     TimeDurationPipe,
     NgxFileDropModule,
     BrowserAnimationsModule,
